@@ -1,0 +1,40 @@
+﻿@model IEnumerable<OVS.Models.Party>
+
+<p>
+    @Html.ActionLink("Create New", "Create" , null , new { @class ="btn btn-primary"})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayName("Party Name")
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model => model.Logo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Motto)
+        </td>
+        
+        <td>
+            <img src="@Url.Content(item.Logo)" width="190" height="150" style="border-radius:20px">
+        </td>
+        <td>
+          
+            @Html.ActionLink("Details", "Details", new { id=item.Party_ID } , new { @class = "btn btn-info" }) |
+            
+        </td>
+    </tr>
+}
+
+</table>

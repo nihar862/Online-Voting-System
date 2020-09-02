@@ -1,0 +1,52 @@
+﻿@model IEnumerable<OVS.Models.Candidate>
+
+<p>
+    @Html.ActionLink("Add New Candidate", "Create" , null , new { @class = "btn btn-warning" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayName("Contact Number")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+       
+        <th>
+            @Html.DisplayName("Email Address")
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mobile_no)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email_id)
+        </td>   
+        <td>
+            <img src="@Url.Content(item.Image)" width="150" height="150" style="border-radius:20px">
+        </td>     
+        <td>         
+            @Html.ActionLink("Details", "Details", new { id=item.Candidate_ID } , new { @class = "btn btn-success" }) | 
+            @Html.ActionLink("Delete", "Delete", new { id = item.Candidate_ID }, new { @class = "btn btn-danger" })                  
+        </td>
+    </tr>
+}
+
+</table>

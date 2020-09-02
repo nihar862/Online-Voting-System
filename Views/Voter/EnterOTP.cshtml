@@ -1,0 +1,33 @@
+﻿@model IEnumerable<OVS.Models.Candidate>
+
+
+<h2>EnterOTP</h2>
+
+<input type="text" id="enterOTP" placeholder="Enter OTP" class="form-control" />
+<a href="#" onclick="verifyOTP()" class="btn btn-primary">Ok</a>
+
+<script>
+    var verifyOTP = function () {
+        var otp = $("#enterOTP").val();
+
+        $.ajax({
+            url: "/Test/VerifyOTP/",
+            data: { otp: otp },
+            type: "post",
+            success: function (data) {
+                debugger
+                if (data == true) {
+                    alert("verification successful");
+                    window.location = "/Voter/VotingPortal";
+                }
+                else {
+                    alert("verification failed");
+                }
+            }
+        })
+    }
+</script>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

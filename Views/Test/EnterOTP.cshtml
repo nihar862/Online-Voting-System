@@ -1,0 +1,40 @@
+﻿@model OVS.Models.Candidate
+
+@{
+    ViewBag.Title = "EnterOTP";
+}
+
+<h2>EnterOTP</h2>
+<h5></h5>
+<input type="text" id="enterOTP" placeholder="Enter OTP" class="form-control" />
+<br/>
+<a href="#" onclick="verifyOTP()" class="btn btn-primary">Verify</a>
+
+<script>
+    function verifyOTP() {
+        var otp = $("#enterOTP").val();
+        
+
+        $.ajax({
+            url: "/Test/VerifyOTP/",
+            data: { otp: otp },
+            type: "post",
+            success: function (data) {
+                debugger
+                if (data == true) {
+                    alert("verification successful");
+                    window.location = "/Voter/CountVote";
+                }
+                else
+                {
+                    alert("verification failed");
+                }
+            }
+
+        })
+    }
+</script>
+    
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

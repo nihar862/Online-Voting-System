@@ -1,0 +1,54 @@
+﻿@model IEnumerable<OVS.Models.Voter>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Add New User", "Register" , null , new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.VoterId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AadharID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VoterId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AadharID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        
+        <td>
+          
+            @Html.ActionLink("Details", "Details", new { id=item.VoterId } , new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.VoterId } , new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

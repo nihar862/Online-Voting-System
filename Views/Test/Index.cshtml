@@ -1,0 +1,42 @@
+﻿@model OVS.Models.Voter
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="well">
+
+    <h3>A One-Time password is sent to Your register Contact number...please verify it</h3>
+    <br/>
+    <a href="#" class="btn btn-success" onclick="SendOTP()">Send OTP</a>
+
+</div>
+
+<script>
+
+
+    var SendOTP = function () {
+       
+        $.ajax({
+            url: "/Test/SendOTP",
+            type: "post",
+            success: function (data) {
+                if (data == "success") {
+                    alert("OTP sent successfully");      
+                    window.location = "/Test/EnterOTP";
+
+                }
+                else {
+                    alert("failed");
+                }
+            }
+
+
+        })
+
+    }
+
+</script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

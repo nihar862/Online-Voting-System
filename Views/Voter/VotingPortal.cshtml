@@ -1,0 +1,52 @@
+﻿@model IEnumerable<OVS.Models.Candidate>
+
+@{ 
+    var isallow = Session["isallow"].ToString();
+    var isvoted = Session["isvoted"].ToString();
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Candidate Name")
+        </th>
+        <th>
+            @Html.DisplayName("Party Name")
+        </th>
+        <th>
+            @Html.DisplayName("Image")
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Party.Motto)
+            </td>
+            <td>
+                <img src="@Url.Content(item.Image)" width="150" height="150" style="border-radius:20px">
+            </td>
+            
+            @if (isallow.ToString() == "True" && isvoted.ToString() == "False")
+            {
+                <td>
+                    @Html.ActionLink("Vote", "Index", "Test", new { id = item.Candidate_ID }, new { @class = "btn btn-primary" })
+                </td>
+            }
+            else
+            {
+                <td>You are not allowed to Vote Yet!</td>
+            }
+        </tr>       
+    }
+</table>
+
+
+
+
+    
