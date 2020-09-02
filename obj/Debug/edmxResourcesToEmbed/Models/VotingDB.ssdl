@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VotingDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Candidate">
+    <Key>
+      <PropertyRef Name="Candidate_ID" />
+    </Key>
+    <Property Name="Candidate_ID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Mobile_no" Type="nvarchar(max)" />
+    <Property Name="City" Type="nvarchar(max)" />
+    <Property Name="State" Type="nvarchar(max)" />
+    <Property Name="Email_id" Type="nvarchar(max)" />
+    <Property Name="Aadhar_Id" Type="nvarchar(max)" />
+    <Property Name="Party_id" Type="varchar" MaxLength="50" />
+    <Property Name="DOB" Type="nvarchar(max)" />
+    <Property Name="Image" Type="nvarchar(max)" />
+    <Property Name="Position" Type="nvarchar(max)" />
+    <Property Name="Vote" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Party">
+    <Key>
+      <PropertyRef Name="Party_ID" />
+    </Key>
+    <Property Name="Party_ID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar(max)" />
+    <Property Name="Motto" Type="varchar(max)" />
+    <Property Name="Logo" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Voter">
+    <Key>
+      <PropertyRef Name="VoterId" />
+    </Key>
+    <Property Name="VoterId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="AadharID" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="70" />
+    <Property Name="Password" Type="nvarchar" MaxLength="70" />
+    <Property Name="Email" Type="nvarchar" MaxLength="70" />
+    <Property Name="Mobile_no" Type="nchar" MaxLength="20" />
+    <Property Name="DOB" Type="date" />
+    <Property Name="City" Type="nvarchar" MaxLength="20" />
+    <Property Name="State" Type="nvarchar" MaxLength="20" />
+    <Property Name="Image" Type="nvarchar(max)" />
+    <Property Name="Role" Type="nvarchar(max)" />
+    <Property Name="isVoted" Type="bit" />
+    <Property Name="isAllowed" Type="bit" />
+  </EntityType>
+  <Association Name="FK_Candidate_Party">
+    <End Role="Party" Type="Self.Party" Multiplicity="0..1" />
+    <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Party">
+        <PropertyRef Name="Party_ID" />
+      </Principal>
+      <Dependent Role="Candidate">
+        <PropertyRef Name="Party_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="VotingDBModelStoreContainer">
+    <EntitySet Name="Candidate" EntityType="Self.Candidate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Party" EntityType="Self.Party" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Voter" EntityType="Self.Voter" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Candidate_Party" Association="Self.FK_Candidate_Party">
+      <End Role="Party" EntitySet="Party" />
+      <End Role="Candidate" EntitySet="Candidate" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

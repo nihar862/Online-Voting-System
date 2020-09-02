@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VotingDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="VotingSystemDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Voters" EntityType="VotingDBModel.Voter" />
+    <EntitySet Name="Candidates" EntityType="VotingDBModel.Candidate" />
+    <EntitySet Name="Parties" EntityType="VotingDBModel.Party" />
+    <AssociationSet Name="FK_Candidate_Party" Association="VotingDBModel.FK_Candidate_Party">
+      <End Role="Party" EntitySet="Parties" />
+      <End Role="Candidate" EntitySet="Candidates" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Voter">
+    <Key>
+      <PropertyRef Name="VoterId" />
+    </Key>
+    <Property Name="VoterId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AadharID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile_no" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="DOB" Type="DateTime" Precision="0" />
+    <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="isVoted" Type="Boolean" />
+    <Property Name="isAllowed" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Candidate">
+    <Key>
+      <PropertyRef Name="Candidate_ID" />
+    </Key>
+    <Property Name="Candidate_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile_no" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Aadhar_Id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Party_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Position" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Vote" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Party" Relationship="VotingDBModel.FK_Candidate_Party" FromRole="Candidate" ToRole="Party" />
+  </EntityType>
+  <EntityType Name="Party">
+    <Key>
+      <PropertyRef Name="Party_ID" />
+    </Key>
+    <Property Name="Party_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Motto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Candidates" Relationship="VotingDBModel.FK_Candidate_Party" FromRole="Party" ToRole="Candidate" />
+  </EntityType>
+  <Association Name="FK_Candidate_Party">
+    <End Type="VotingDBModel.Party" Role="Party" Multiplicity="0..1" />
+    <End Type="VotingDBModel.Candidate" Role="Candidate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Party">
+        <PropertyRef Name="Party_ID" />
+      </Principal>
+      <Dependent Role="Candidate">
+        <PropertyRef Name="Party_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
